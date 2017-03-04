@@ -31,3 +31,6 @@ redis-password=
 # Tunnel lifetime in Redis database, seconds
 tunnel-lifetime-sec=600
 
+# Domain (for Letsencrypt)
+domain=hacktunnel.com
+

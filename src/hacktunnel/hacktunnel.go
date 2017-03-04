@@ -15,7 +15,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"path"
+	"crypto/tls"
 	"runtime/debug"
 	"syscall"
 	"time"
@@ -23,13 +23,11 @@ import (
 	"github.com/devhq-io/ax"
 	"github.com/devhq-io/endless"
 	"github.com/gorilla/mux"
+	"golang.org/x/crypto/acme/autocert"
 )
 
 var (
-	tlsFilesPath    string = "."
-	tlsCertFileName string = "tls-cert.pem"
-	tlsKeyFileName  string = "tls.key"
-	logFile         *os.File
+	logFile *os.File
 )
 
 func setupLogger(which string) {
@@ -124,12 +122,18 @@ func start(r *ax.Router, port int, usetls bool) {
 		preSigInt)
 	endless.DefaultHammerTime = -1 // disable hammering the server
 	if usetls {
-		certfname := path.Join(tlsFilesPath, tlsCertFileName)
-		keyfname := path.Join(tlsFilesPath, tlsKeyFileName)
+		certManager := autocert.Manager{
+			Prompt:     autocert.AcceptTOS,
+			HostPolicy: autocert.HostWhitelist(config.C().Domain),
+			Cache:      autocert.DirCache("certs"), //folder for storing certificates
+		}
+		srv.TLSConfig = &tls.Config{
+			GetCertificate: certManager.GetCertificate,
+		}
 		if config.C().RedirTo != "" {
 			go redir()
 		}
-		log.Println(srv.ListenAndServeTLS(certfname, keyfname))
+		log.Println(srv.ListenAndServeTLS("", ""))
 	} else {
 		log.Println(srv.ListenAndServe())
 	}

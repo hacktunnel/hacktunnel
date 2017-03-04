@@ -23,6 +23,7 @@ type Config struct {
 	RedisDb           int      `gcfg:"redis-db"`
 	RedisPassword     string   `gcfg:"redis-password"`
 	TunnelLifetime    int64    `gcfg:"tunnel-lifetime-sec"`
+	Domain            string   `gcfg:"domain"`
 }
 
 type configFile struct {

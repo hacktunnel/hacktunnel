@@ -66,6 +66,27 @@
 			"repository": "https://github.com/scalingdata/gcfg",
 			"revision": "37aabad69cfd3d20b8390d902a8b10e245c615ff",
 			"branch": "master"
+		},
+		{
+			"importpath": "golang.org/x/crypto/acme",
+			"repository": "https://go.googlesource.com/crypto",
+			"revision": "40541ccb1c6e64c947ed6f606b8a6cb4b67d7436",
+			"branch": "master",
+			"path": "/acme"
+		},
+		{
+			"importpath": "golang.org/x/crypto/acme/autocert",
+			"repository": "https://go.googlesource.com/crypto",
+			"revision": "40541ccb1c6e64c947ed6f606b8a6cb4b67d7436",
+			"branch": "master",
+			"path": "/acme/autocert"
+		},
+		{
+			"importpath": "golang.org/x/net/context",
+			"repository": "https://go.googlesource.com/net",
+			"revision": "d379faa25cbdc04d653984913a2ceb43b0bc46d7",
+			"branch": "master",
+			"path": "/context"
 		}
 	]
 }
